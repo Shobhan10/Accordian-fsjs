@@ -25,45 +25,52 @@ const accordianBody = document.querySelector(".accordian_body");
 // better approach
 const faqs = Array(faqData.length);
 
-function showFaq() {
-  createFaq();
-}
-
 function createFaq() {
   for (let faq = 0; faq < faqs.length; faq++) {
     faqs[faq] = document.createElement("div");
     faqs[faq].setAttribute("class", "faq");
-    accordianBody.append(faqs[faq]);
 
     const faqHeader = document.createElement("div");
     faqHeader.setAttribute("class", "faq_header");
-    faqs[faq].append(faqHeader);
 
     const h3 = document.createElement("h3");
-    h3.textContent = faqData[faq].question;
-    faqHeader.append(h3);
 
     const p = document.createElement("p");
     p.setAttribute("class", "hidden");
-    p.textContent = faqData[faq].answer;
-    faqs[faq].append(p);
 
     const button = document.createElement("button");
-    button.textContent = "+";
     button.setAttribute("class", "show_btn");
-    faqHeader.append(button);
 
-    button.addEventListener("click", () => {
-      p.classList.toggle("hidden");
-      if (p.classList != "hidden") {
-        button.textContent = "-";
-      } else {
-        button.textContent = "+";
-      }
-    });
+    showFaq(faq, faqHeader, h3, p, button);
   }
 }
 
-function btnStatusUpdate() {}
+function showFaq(faq, faqHeader, h3, p, button) {
+  accordianBody.append(faqs[faq]);
+  
+  faqs[faq].append(faqHeader);
 
-showFaq();
+  h3.textContent = faqData[faq].question;
+  faqHeader.append(h3);
+
+  p.textContent = faqData[faq].answer;
+  faqs[faq].append(p);
+
+  button.textContent = "+";
+  faqHeader.append(button);
+
+  button.addEventListener("click", () => {
+    btnStatusUpdate(button, p);
+  });
+}
+
+function btnStatusUpdate(button, p) {
+  p.classList.toggle("hidden");
+  if (p.classList != "hidden") {
+    button.textContent = "-";
+  } else {
+    button.textContent = "+";
+  }
+}
+
+createFaq();
