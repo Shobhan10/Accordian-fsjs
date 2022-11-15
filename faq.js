@@ -23,7 +23,7 @@ const accordianBody = document.querySelector(".accordian_body");
 // const faqs = [...faqData];
 
 // better approach
-const faqs = Array(faqData.length);
+const faqs = new Array(faqData.length);
 
 function createFaq() {
   for (let faq = 0; faq < faqs.length; faq++) {
@@ -47,7 +47,7 @@ function createFaq() {
 
 function showFaq(faq, faqHeader, h3, p, button) {
   accordianBody.append(faqs[faq]);
-  
+
   faqs[faq].append(faqHeader);
 
   h3.textContent = faqData[faq].question;
